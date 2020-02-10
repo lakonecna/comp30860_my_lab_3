@@ -1,9 +1,14 @@
 package ie.ucd.noteit.entities;
 
-public class Note {
+import java.io.Serializable;
+
+public class Note implements Serializable {
+    private static final long serialVersionUID = 1L;
     private int id;
     private String title;
     private String content;
+
+    public Note() {}
 
     public Note(int id, String title, String content) {
         this.id = id;

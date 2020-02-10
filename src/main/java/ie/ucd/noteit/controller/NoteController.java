@@ -30,8 +30,8 @@ public class NoteController {
         return "browse.html";
     }
 
-    @GetMapping("/view")
+    /*@GetMapping("/view")
     public String getNotePage(@RequestParam(id="id") int id,Model model) {
         return model.getAttribute("id") + ".html";
-    }
+    }*/
 }
