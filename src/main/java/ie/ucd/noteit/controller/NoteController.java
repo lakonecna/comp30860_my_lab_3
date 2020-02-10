@@ -15,7 +15,3 @@ public class NoteController {
         return "hello.html";
     }
 }
-
-/*stat to temp, for each file have a method which returns, gets and [] the doc (make them work with the controller)
-* then update the docs to go to / instead of other docs
-* next week : have notes be put into the actual db*/
