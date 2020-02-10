@@ -14,4 +14,24 @@ public class NoteController {
         model.addAttribute("count", count++);
         return "hello.html";
     }
+
+    @GetMapping("/index")
+    public String getIndexPage() {
+        return "index.html";
+    }
+
+    @GetMapping("/create")
+    public String getCreatePage() {
+        return "create.html";
+    }
+
+    @GetMapping("/browse")
+    public String getBrowsePage() {
+        return "browse.html";
+    }
+
+    @GetMapping("/view")
+    public String getNotePage(@RequestParam(id="id") int id,Model model) {
+        return model.getAttribute("id") + ".html";
+    }
 }
