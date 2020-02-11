@@ -20,6 +20,19 @@
         </nav>
 
         <h1>Name:<span th:text="${name}"></span></h1>
+        <!--<table>
+            <tr th:each="colour : ${colours}">
+                <td th:text="${colour}"></td>
+            </tr>
+        </table>-->
+
+        <table>
+            <tr th:each="note : ${notes}">
+                <td th:text="${note.id}"></td>
+                <td th:text="${note.title}"></td>
+                <td th:text="${note.content}"></td>
+            </tr>
+        </table>
 
         <div class="container">
             <div class="row">
