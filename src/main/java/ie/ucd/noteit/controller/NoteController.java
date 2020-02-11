@@ -49,6 +49,17 @@ public class NoteController {
     public String getErrorPage(Model model) {
         return "";
     }
+
+    @GetMapping("/note")
+    public String getNotePage(@RequestParam(username="username") String username,
+                              @RequestParam(password="password") String password,
+                              Model model) {
+        if(password.equals("ilovecats")) {
+            model.addAttribute(username);
+            return "note.html";
+        }
+        return "browse.html";
+    }
     /*@GetMapping("/view")
     public String getNotePage(@RequestParam(id="id") int id,Model model) {
         return model.getAttribute("id") + ".html";
