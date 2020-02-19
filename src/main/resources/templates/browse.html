@@ -19,32 +19,6 @@
             </div>
         </nav>
 
-        <h1>Name:<span th:text="${name}"></span></h1>
-        <!--<table>
-            <tr th:each="colour : ${colours}">
-                <td th:text="${colour}"></td>
-            </tr>
-        </table>-->
-
-        <table>
-            <tr th:each="note : ${notes}">
-                <td th:text="${note.id}"></td>
-                <td th:text="${note.title}"></td>
-                <td th:text="${note.content}"></td>
-            </tr>
-        </table>
-
-        <div>
-            <h1>Form:</h1>
-            <form method="GET" action="/note">
-                Username:<br>
-                <input type="text" name="username"><br>
-                Password:<br>
-                <input type="password" name="password">
-                <button type="submit">Login</button>
-            </form>
-        </div>
-
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">&nbsp;</div>
@@ -57,7 +31,7 @@
                     <h2>My Notes</h2>
                 </div>
                 <div class="col-lg">
-                    <a class="btn btn-primary float-right" href="index.html">Back</a>
+                    <a class="btn btn-primary float-right" href="/index.html">Back</a>
                 </div>
             </div>
             <div class="row">
@@ -77,7 +51,30 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
+                                <div th:each="note : ${notes}">
+                                    <tr>
+                                        <td>
+                                            <p th:text="${note.created}"></p>
+                                        </td>
+
+                                        <td>
+                                            <p th:text="${note.lastUpdated}"></p>
+                                        </td>
+
+                                        <td>
+                                            <p th:text="${note.title}"></p>
+                                        </td>
+
+                                        <td>
+                                            <p th:text="${note.version}"></p>
+                                        </td>
+
+                                        <td>
+                                            <button class="btn btn-primary" href="@{/view(id=${note.id})}">View</button>
+                                        </td>
+                                    </tr>
+                                </div>
+                                <!--<tr>
                                     <td>25-Dec 2019</td>
                                     <td>25-Dec 2019</td>
                                     <td>What I got for Christmas</td>
@@ -90,7 +87,7 @@
                                     <td>2018 Christmas Shopping List</td>
                                     <td style="text-align:center">1</td>
                                     <td><button class="btn btn-primary">View</button></td>
-                                </tr>
+                                </tr>-->
                             </tbody>
                         </table>
                     </div>

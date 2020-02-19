@@ -1,6 +1,8 @@
 package ie.ucd.noteit.controller;
 
 import ie.ucd.noteit.entities.Note;
+import ie.ucd.noteit.entities.NoteRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,15 +12,17 @@ import java.util.ArrayList;
 
 @Controller
 public class NoteController {
-    int count = 0;
+    @Autowired
+    private NoteRepository noteRepository;
+
+
     @GetMapping("/greeting")
     public String greeting(@RequestParam(name="name") String name, Model model) {
         model.addAttribute("name", name);
-        model.addAttribute("count", count++);
         return "hello.html";
     }
 
-    @GetMapping("/index")
+    @GetMapping("/")
     public String getIndexPage() {
         return "index.html";
     }
@@ -38,9 +42,9 @@ public class NoteController {
     public String notes(@RequestParam(name="name") String name,Model model) {
         model.addAttribute("name",name);
         ArrayList<Note> notes = new ArrayList<Note>();
-        notes.add(new Note(0,"Title0","I like dogs"));
-        notes.add(new Note(1,"Title1","I like cats"));
-        notes.add(new Note(2,"Title2","I like lions"));
+        notes.add(new Note((long) 0,"Title0","I like dogs"));
+        notes.add(new Note((long) 1,"Title1","I like cats"));
+        notes.add(new Note((long) 2,"Title2","I like lions"));
         model.addAttribute("notes",notes);
         return "browse.html";
     }
@@ -51,17 +55,10 @@ public class NoteController {
     }
 
     @GetMapping("/note")
-    public String getNotePage(@RequestParam(username="username") String username,
-                              @RequestParam(password="password") String password,
-                              Model model) {
-        if(password.equals("ilovecats")) {
-            model.addAttribute(username);
-            return "note.html";
-        }
-        return "browse.html";
+    public String note(@RequestParam("id") long id,Model model) {
+        Note note = noteRepository.getOne(id);
+        model.addAttribute("title",note.getTitle());
+        model.addAttribute("content",note.getContent().replaceAll("\n","<br>"));
+        return "note.html";
     }
-    /*@GetMapping("/view")
-    public String getNotePage(@RequestParam(id="id") int id,Model model) {
-        return model.getAttribute("id") + ".html";
-    }*/
 }

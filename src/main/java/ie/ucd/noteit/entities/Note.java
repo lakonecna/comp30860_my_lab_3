@@ -1,26 +1,43 @@
 package ie.ucd.noteit.entities;
 
-import java.io.Serializable;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
+import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
+
+import javax.persistence.*;
+
+@Entity
 public class Note implements Serializable {
     private static final long serialVersionUID = 1L;
-    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
     private String title;
     private String content;
+    @CreationTimestamp
+    private Date created;
+    @UpdateTimestamp
+    private Date lastUpdated;
+    @OneToOne(mappedBy = "note")
+    private int version;
 
     public Note() {}
 
-    public Note(int id, String title, String content) {
+    public Note(Long id, String title, String content) {
         this.id = id;
         this.title = title;
         this.content = content;
+        this.version = 1;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -30,6 +47,7 @@ public class Note implements Serializable {
 
     public void setTitle(String title) {
         this.title = title;
+        ++version;
     }
 
     public String getContent() {
@@ -38,5 +56,20 @@ public class Note implements Serializable {
 
     public void setContent(String content) {
         this.content = content;
+        ++version;
     }
+
+    public Date getLastUpdated() {
+        return lastUpdated;
+    }
+
+    public Date getCreated() {
+        return created;
+    }
+
+    public int getVersion() {
+        return version;
+    }
+
+    public void setVersion(int version) { this.version = version; }
 }
