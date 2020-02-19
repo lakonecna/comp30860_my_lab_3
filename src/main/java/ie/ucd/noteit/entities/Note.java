@@ -15,14 +15,13 @@ public class Note implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String title;
-    private String content;
+    @Column private String title;
+    @Column private String content;
     @CreationTimestamp
-    private Date created;
+    @Column private Date created;
     @UpdateTimestamp
-    private Date lastUpdated;
-    @OneToOne(mappedBy = "note")
-    private int version;
+    @Column private Date lastUpdated;
+    @Column private int version;
 
     public Note() {}
 
