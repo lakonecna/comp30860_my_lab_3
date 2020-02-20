@@ -15,13 +15,6 @@ public class NoteController {
     @Autowired
     private NoteRepository noteRepository;
 
-
-    @GetMapping("/greeting")
-    public String greeting(@RequestParam(name="name") String name, Model model) {
-        model.addAttribute("name", name);
-        return "hello.html";
-    }
-
     @GetMapping("/")
     public String getIndexPage() {
         return "index.html";
@@ -33,12 +26,13 @@ public class NoteController {
     }
 
     @GetMapping("/browse")
-    public String getBrowsePage(@RequestParam(name="name") String name,Model model) {
-        model.addAttribute("name",name);
+    public String browse(Model model) {
+        ArrayList<Note> notes = new ArrayList<Note>(noteRepository.findAll());
+        model.addAttribute(notes);
         return "browse.html";
     }
 
-    @GetMapping("/notes")
+    /*@GetMapping("/notes")
     public String notes(@RequestParam(name="name") String name,Model model) {
         model.addAttribute("name",name);
         ArrayList<Note> notes = new ArrayList<Note>();
@@ -47,12 +41,7 @@ public class NoteController {
         notes.add(new Note((long) 2,"Title2","I like lions"));
         model.addAttribute("notes",notes);
         return "browse.html";
-    }
-
-    @GetMapping("/error")
-    public String getErrorPage(Model model) {
-        return "";
-    }
+    }*/
 
     @GetMapping("/note")
     public String note(@RequestParam("id") long id,Model model) {
