@@ -15,21 +15,22 @@ public class Note implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @Column private String title;
-    @Column private String content;
+    @Column
+    private String title;
+    @Column
+    private String content;
     @CreationTimestamp
-    @Column private Date created;
-    @UpdateTimestamp
-    @Column private Date lastUpdated;
-    @Column private int version;
+    @Column
+    private Date created;
+    @Column
+    private int version;
 
     public Note() {}
-
-    public Note(Long id, String title, String content) {
-        this.id = id;
+    public Note( String title, String content, Date created, int version) {
         this.title = title;
         this.content = content;
-        this.version = 1;
+        this.created = created;
+        this.version = version;
     }
 
     public Long getId() {
@@ -58,13 +59,17 @@ public class Note implements Serializable {
         ++version;
     }
 
-    public Date getLastUpdated() {
-        return lastUpdated;
-    }
+//    public Date getLastUpdated() {
+//        return lastUpdated;
+//    }
+//
+//    public void setLastUpdated(Date lastUpdated) { this.lastUpdated = lastUpdated; }
 
     public Date getCreated() {
         return created;
     }
+
+    public void setCreated(Date created) { this.created = created; }
 
     public int getVersion() {
         return version;
