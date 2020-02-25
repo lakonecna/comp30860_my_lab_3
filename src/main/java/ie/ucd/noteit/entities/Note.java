@@ -10,14 +10,13 @@ import java.util.List;
 import javax.persistence.*;
 
 @Entity
-public class Note implements Serializable {
-    private static final long serialVersionUID = 1L;
+public class Note {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @Column
+    @Column(name="title")
     private String title;
-    @Column
+    @Column(name="content")
     private String content;
     @CreationTimestamp
     @Column
@@ -38,6 +37,7 @@ public class Note implements Serializable {
     }
 
     public void setId(Long id) {
+        System.out.println("My id is " + this.id);
         this.id = id;
     }
 

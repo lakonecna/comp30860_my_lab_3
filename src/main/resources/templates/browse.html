@@ -66,11 +66,11 @@
                                         </td>
 
                                         <td>
-                                            <p th:text="${note.version}"></p>
+                                            <p style="text-align:center" th:text="${note.version}"></p>
                                         </td>
 
                                         <td>
-                                            <button class="btn btn-primary" href="@{/view(id=${note.id})}">View</button>
+                                            <a class="btn btn-primary" th:href="@{/view(id=${note.id})}">View</a>
                                         </td>
                                     </tr>
                                 </div>

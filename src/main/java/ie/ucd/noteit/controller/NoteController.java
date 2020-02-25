@@ -17,10 +17,10 @@ import java.util.ArrayList;
 public class NoteController {
     @Autowired
     private NoteRepository noteRepository;
-    private int noteCount = 3;
 
     @GetMapping("/")
-    public String firstPage() { return "index.html"; }
+    public String firstPage() {
+        return "index.html"; }
 
     @GetMapping("/index")
     public String index() { return "index.html"; }
@@ -32,10 +32,10 @@ public class NoteController {
 
     @PostMapping("/saveNote")
     public void saveNote(String title,String note, HttpServletResponse response) throws IOException {
-        ++noteCount;
         Note newNote = new Note();
         newNote.setTitle(title);
         newNote.setContent(note);
+        newNote.setVersion(1);
         noteRepository.save(newNote);
         response.sendRedirect("/");
     }
@@ -47,11 +47,12 @@ public class NoteController {
         return "browse.html";
     }
 
-    @GetMapping("/view?id={id}")
+    @GetMapping("/view")
     public String note(@RequestParam("id") long id,Model model) {
         Note note = noteRepository.getOne(id);
         model.addAttribute(note);
         model.addAttribute("title",note.getTitle());
+        model.addAttribute("created",note.getCreated());
         model.addAttribute("content",note.getContent().replaceAll("\n","<br>"));
         return "view.html";
     }
